@@ -37,6 +37,7 @@ sizefile $file var
 sizedir $dir var
 keyseta var=Key: 
 keysetb var=...
+random $minValue $maxValue var
 ARGS:
 file:(file)
 ver

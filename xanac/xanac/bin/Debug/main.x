@@ -1,19 +1,15 @@
-keysetb key=Key: 
-print 
-print Key = &&&$key
+caption XanaOS
+color green black
+clear
+[other]
+set str=/$
+if str = info inf
+color red black
+print Not found command &&&$str&&&;
+color green black
+go other
+[inf]
+print Version Alpha 1
+print Author: InnieSharp
 pause
-exit
-print Hello, OWrld!
-var test=tes
-print Var: &&&$test&&&/$da
-pause
-color black white
-caption $test&&&fromfile:main.x||0&&&/fromfile:
-set var=//#
-if var ? 1 a
-pause
-print test
-pause
-[a]
-print ttest1
-pause
+go other

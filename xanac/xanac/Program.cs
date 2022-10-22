@@ -2880,7 +2880,117 @@ namespace xanac
 	                    }
 	                    if(!d)
 	                    	vars.Add(var1 + "=" + va.Key);
-					}
+	                }
+	                else if (l[i].StartsWith("random "))
+	                {
+	                	string def = l[i].Remove(0, 7);
+	                	string[] splitstra = { " " };
+						string[] splitresa = def.Split(splitstra, StringSplitOptions.None);
+						string minValue = splitresa[0];
+						string maxValue = splitresa[1];
+						string var1 = splitresa[2];
+						string[] splitstr = { "&&&" };
+						string[] splitres = minValue.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+	                    minValue = result;
+	                    splitres = maxValue.Split(splitstr, StringSplitOptions.None);
+						result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+	                    maxValue = result;
+	                    int a = int.Parse(minValue);
+	                    int b = int.Parse(maxValue);
+	                	Random r = new Random();
+	                	int va = r.Next(a, b);
+	                	bool d = false;
+						for (int ch = 0; ch < vars.Count; ch++)
+	                    {
+	                        if (vars[ch].StartsWith(var1 + "="))
+	                        {
+	                        	vars[ch] = var1 + "=" + va;
+	                        	d = true;
+	                            break;
+	                        }
+	                    }
+	                    if(!d)
+	                    	vars.Add(var1 + "=" + va);
+	                }
 				}
 				catch
 				{
