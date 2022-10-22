@@ -1,3 +1,8 @@
+keysetb key=Key: 
+print 
+print Key = &&&$key
+pause
+exit
 print Hello, OWrld!
 var test=tes
 print Var: &&&$test&&&/$da

@@ -231,66 +231,6 @@ namespace xanac
 									result += "empty";
 								}
 							}
-							else if(str2.StartsWith("fromfile:"))
-							{
-								str2 = str2.Remove(0, 9);
-								string[] splitstrs = { "||" };
-								string[] splitress = str2.Split(splitstrs, StringSplitOptions.None);
-								string file = splitress[0];
-								string[] splitstrae = { "&&&" };
-								string[] splitresae = file.Split(splitstrae, StringSplitOptions.None);
-								string resulta = "";
-								for(int cha = 0; ch < splitresae.Length; ch++)
-								{
-									string str2a = splitresae[ch];
-									if(str2a.StartsWith("/"))
-									{
-										str2a= str2a.Remove(0, 1);
-										resulta += str2a;
-									}
-									else if(str2a.StartsWith("$"))
-									{
-										string var = str2a.Remove(0, 1);
-										bool act = false;
-										for(int ln = 0; ln < vars.Count; ln++)
-										{
-											if(vars[ln].StartsWith(var + "="))
-											{
-												resulta += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
-												act = true;
-												break;
-											}
-										}
-										if(!act)
-										{
-											resulta += "empty";
-										}
-									}
-									else if(str2a == "time")
-									{
-										resulta += DateTime.Now.ToString("HH:mm:ss");
-									}
-									else if(str2a == "dd.MM.yyyy")
-									{
-										resulta += DateTime.Now.ToString("HH:mm:ss");
-									}
-									else
-									{
-										resulta += str2a;
-									}
-								}
-								file = resulta;
-								int lna = int.Parse(splitress[1]);
-								if(File.Exists(file))
-								{
-									string[] fils = File.ReadAllLines(file);
-									result += fils[lna];
-								}
-								else
-								{
-									result += "empty";
-								}
-							}
 							else if(str2 == "time")
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
@@ -394,66 +334,6 @@ namespace xanac
 									}
 								}
 								if(!act)
-								{
-									result += "empty";
-								}
-							}
-							else if(str2.StartsWith("fromfile:"))
-							{
-								str2 = str2.Remove(0, 9);
-								string[] splitstrs = { "||" };
-								string[] splitress = str2.Split(splitstrs, StringSplitOptions.None);
-								string file = splitress[0];
-								string[] splitstra = { "&&&" };
-								string[] splitresa = file.Split(splitstr, StringSplitOptions.None);
-								string resulta = "";
-								for(int cha = 0; ch < splitresa.Length; ch++)
-								{
-									string str2a = splitresa[cha];
-									if(str2a.StartsWith("/"))
-									{
-										str2a= str2a.Remove(0, 1);
-										resulta += str2a;
-									}
-									else if(str2a.StartsWith("$"))
-									{
-										string var = str2a.Remove(0, 1);
-										bool act = false;
-										for(int ln = 0; ln < vars.Count; ln++)
-										{
-											if(vars[ln].StartsWith(var + "="))
-											{
-												resulta += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
-												act = true;
-												break;
-											}
-										}
-										if(!act)
-										{
-											resulta += "empty";
-										}
-									}
-									else if(str2a == "time")
-									{
-										resulta += DateTime.Now.ToString("HH:mm:ss");
-									}
-									else if(str2a == "dd.MM.yyyy")
-									{
-										resulta += DateTime.Now.ToString("HH:mm:ss");
-									}
-									else
-									{
-										resulta += str2a;
-									}
-								}
-								file = resulta;
-								int lna = int.Parse(splitress[1]);
-								if(File.Exists(file))
-								{
-									string[] fils = File.ReadAllLines(file);
-									result += fils[lna];
-								}
-								else
 								{
 									result += "empty";
 								}
@@ -771,6 +651,2235 @@ namespace xanac
 								}
 							}
 						}
+					}
+					else if(l[i].StartsWith("go "))
+					{
+						string func = l[i].Remove(0, 3);
+						for(int ab = 0; ab < l.Length; ab++)
+						{
+							if(l[ab] == "[" + func + "]")
+							{
+								i = ab;
+								break;
+							}
+						}
+					}
+					else if(l[i].StartsWith("math "))
+					{
+						string def = l[i].Remove(0, 5);
+						string[] splita = { " " };
+						string[] st = def.Split(splita, StringSplitOptions.None);
+						string one = st[0];
+						string actu = st[1];
+						string two = st[2];
+						string res = st[3];
+						string[] splitstr = { "&&&" };
+						string[] splitres = one.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						one = result;
+						splitres = two.Split(splitstr, StringSplitOptions.None);
+						result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						two = result;
+						if(actu == "+")
+						{
+							double a = double.Parse(one);
+							double b = double.Parse(two);
+							double resa = a + b;
+							bool d = false;
+							for (int ch = 0; ch < vars.Count; ch++)
+		                    {
+		                        if (vars[ch].StartsWith(res + "="))
+		                        {
+		                        	vars[ch] = res + "=" + resa;
+		                        	d = true;
+		                            break;
+		                        }
+		                    }
+		                    if(!d)
+		                    	vars.Add(res + "=" + resa);
+						}
+						else if(actu == "-")
+						{
+							double a = double.Parse(one);
+							double b = double.Parse(two);
+							double resa = a - b;
+							bool d = false;
+							for (int ch = 0; ch < vars.Count; ch++)
+		                    {
+		                        if (vars[ch].StartsWith(res + "="))
+		                        {
+		                        	vars[ch] = res + "=" + resa;
+		                        	d = true;
+		                            break;
+		                        }
+		                    }
+		                    if(!d)
+		                    	vars.Add(res + "=" + resa);
+						}
+						else if(actu == "*")
+						{
+							double a = double.Parse(one);
+							double b = double.Parse(two);
+							double resa = a * b;
+							bool d = false;
+							for (int ch = 0; ch < vars.Count; ch++)
+		                    {
+		                        if (vars[ch].StartsWith(res + "="))
+		                        {
+		                        	vars[ch] = res + "=" + resa;
+		                        	d = true;
+		                            break;
+		                        }
+		                    }
+		                    if(!d)
+		                    	vars.Add(res + "=" + resa);
+						}
+						else if(actu == "/")
+						{
+							double a = double.Parse(one);
+							double b = double.Parse(two);
+							double resa = a / b;
+							bool d = false;
+							for (int ch = 0; ch < vars.Count; ch++)
+		                    {
+		                        if (vars[ch].StartsWith(res + "="))
+		                        {
+		                        	vars[ch] = res + "=" + resa;
+		                        	d = true;
+		                            break;
+		                        }
+		                    }
+		                    if(!d)
+		                    	vars.Add(res + "=" + resa);
+						}
+						else if(actu == "%")
+						{
+							double a = double.Parse(one);
+							double b = double.Parse(two);
+							double resa = a % b;
+							bool d = false;
+							for (int ch = 0; ch < vars.Count; ch++)
+		                    {
+		                        if (vars[ch].StartsWith(res + "="))
+		                        {
+		                        	vars[ch] = res + "=" + resa;
+		                        	d = true;
+		                            break;
+		                        }
+		                    }
+		                    if(!d)
+		                    	vars.Add(res + "=" + resa);
+						}
+					}
+					else if(l[i].StartsWith("start "))
+					{
+						string def = l[i].Remove(0, 6);
+						string[] splita = { " " };
+						string[] st = def.Split(splita, StringSplitOptions.None);
+						string type = st[0];
+						if(type == "default" || type == "admin")
+						{
+							string paths = st[1];
+							string[] splitstr = { "&&&" };
+							string[] splitres = paths.Split(splitstr, StringSplitOptions.None);
+							string result = "";
+							for(int ch = 0; ch < splitres.Length; ch++)
+							{
+								string str2 = splitres[ch];
+								if(str2.StartsWith("/"))
+								{
+									str2 = str2.Remove(0, 1);
+									result += str2;
+								}
+								else if(str2.StartsWith("$"))
+								{
+									string var = str2.Remove(0, 1);
+									bool act = false;
+									for(int ln = 0; ln < vars.Count; ln++)
+									{
+										if(vars[ln].StartsWith(var + "="))
+										{
+											result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+											act = true;
+											break;
+										}
+									}
+									if(!act)
+									{
+										result += "empty";
+									}
+								}
+								else if(str2 == "time")
+								{
+									result += DateTime.Now.ToString("HH:mm:ss");
+								}
+								else if(str2 == "dd.MM.yyyy")
+								{
+									result += DateTime.Now.ToString("HH:mm:ss");
+								}
+								else
+								{
+									result += str2;
+								}
+							}
+							paths = result;
+							if(type == "admin")
+							{
+								Process p = new Process();
+								p.StartInfo.FileName = paths;
+								p.StartInfo.UseShellExecute = true;
+								p.Start();
+							}
+							else
+							{
+								Process p = new Process();
+								p.StartInfo.FileName = paths;
+								p.StartInfo.UseShellExecute = false;
+								p.Start();
+							}
+						}
+						else if(type == "args" || type == "argsadmin")
+						{
+							string paths = st[1];
+							string arg = st[2];
+							string[] splitstr = { "&&&" };
+							string[] splitres = paths.Split(splitstr, StringSplitOptions.None);
+							string result = "";
+							for(int ch = 0; ch < splitres.Length; ch++)
+							{
+								string str2 = splitres[ch];
+								if(str2.StartsWith("/"))
+								{
+									str2 = str2.Remove(0, 1);
+									result += str2;
+								}
+								else if(str2.StartsWith("$"))
+								{
+									string var = str2.Remove(0, 1);
+									bool act = false;
+									for(int ln = 0; ln < vars.Count; ln++)
+									{
+										if(vars[ln].StartsWith(var + "="))
+										{
+											result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+											act = true;
+											break;
+										}
+									}
+									if(!act)
+									{
+										result += "empty";
+									}
+								}
+								else if(str2 == "time")
+								{
+									result += DateTime.Now.ToString("HH:mm:ss");
+								}
+								else if(str2 == "dd.MM.yyyy")
+								{
+									result += DateTime.Now.ToString("HH:mm:ss");
+								}
+								else
+								{
+									result += str2;
+								}
+							}
+							paths = result;
+							splitres = arg.Split(splitstr, StringSplitOptions.None);
+							result = "";
+							for(int ch = 0; ch < splitres.Length; ch++)
+							{
+								string str2 = splitres[ch];
+								if(str2.StartsWith("/"))
+								{
+									str2 = str2.Remove(0, 1);
+									result += str2;
+								}
+								else if(str2.StartsWith("$"))
+								{
+									string var = str2.Remove(0, 1);
+									bool act = false;
+									for(int ln = 0; ln < vars.Count; ln++)
+									{
+										if(vars[ln].StartsWith(var + "="))
+										{
+											result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+											act = true;
+											break;
+										}
+									}
+									if(!act)
+									{
+										result += "empty";
+									}
+								}
+								else if(str2 == "time")
+								{
+									result += DateTime.Now.ToString("HH:mm:ss");
+								}
+								else if(str2 == "dd.MM.yyyy")
+								{
+									result += DateTime.Now.ToString("HH:mm:ss");
+								}
+								else
+								{
+									result += str2;
+								}
+							}
+							arg = result;
+							if(type == "argsadmin")
+							{
+								Process p = new Process();
+								p.StartInfo.FileName = paths;
+								p.StartInfo.UseShellExecute = true;
+								p.StartInfo.Arguments = arg;
+								p.Start();
+							}
+							else
+							{
+								Process p = new Process();
+								p.StartInfo.FileName = paths;
+								p.StartInfo.UseShellExecute = false;
+								p.StartInfo.Arguments = arg;
+								p.Start();
+							}
+						}
+					}
+					else if(l[i].StartsWith("kill "))
+					{
+						string def = l[i].Remove(0, 5);
+						string[] splitstr = { "&&&" };
+						string[] splitres = def.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						def = result;
+						Process[] ps = Process.GetProcessesByName(def);
+						foreach(Process p in ps)
+						{
+							p.Kill();
+						}
+					}
+					else if(l[i].StartsWith("wait "))
+					{
+						string def = l[i].Remove(0, 5);
+						string type = def.Substring(0, def.IndexOf(" "));
+						string val = def.Substring(def.IndexOf(" ") + 1);
+						string[] splitstr = { "&&&" };
+						string[] splitres = val.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						val = result;
+						int it = int.Parse(val);
+						if(type == "s")
+						{
+							Thread.Sleep(it * 1000);
+						}
+						else
+						{
+							Thread.Sleep(it);
+						}
+					}
+					else if(l[i].StartsWith("crdir "))
+					{
+						string def = l[i].Remove(0, 6);
+						string[] splitstr = { "&&&" };
+						string[] splitres = def.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						def = result;
+						Directory.CreateDirectory(def);
+					}
+					else if(l[i].StartsWith("rmdir "))
+					{
+						string def = l[i].Remove(0, 6);
+						string[] splitstr = { "&&&" };
+						string[] splitres = def.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						def = result;
+						if(Directory.Exists(def))
+							Directory.Delete(def, true);
+					}
+					else if(l[i].StartsWith("crfile "))
+					{
+						string def = l[i].Remove(0, 7);
+						string[] splitstr = { "&&&" };
+						string[] splitres = def.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						def = result;
+						File.WriteAllText(def, "");
+					}
+					else if(l[i].StartsWith("rmfile "))
+					{
+						string def = l[i].Remove(0, 7);
+						string[] splitstr = { "&&&" };
+						string[] splitres = def.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						def = result;
+						if(File.Exists(def))
+							File.Delete(def);
+					}
+					else if(l[i].StartsWith("movedir "))
+					{
+						string def = l[i].Remove(0, 8);
+						string froma = def.Substring(0, def.IndexOf(" "));
+						string toa = def.Substring(def.IndexOf(" ") + 1);
+						string[] splitstr = { "&&&" };
+						string[] splitres = froma.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						froma = result;
+						splitres = toa.Split(splitstr, StringSplitOptions.None);
+						result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						toa = result;
+						Directory.Move(froma, toa);
+					}
+					else if(l[i].StartsWith("movefile "))
+					{
+						string def = l[i].Remove(0, 9);
+						string froma = def.Substring(0, def.IndexOf(" "));
+						string toa = def.Substring(def.IndexOf(" ") + 1);
+						string[] splitstr = { "&&&" };
+						string[] splitres = froma.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						froma = result;
+						splitres = toa.Split(splitstr, StringSplitOptions.None);
+						result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						toa = result;
+						File.Move(froma, toa);
+					}
+					else if(l[i].StartsWith("copyfile "))
+					{
+						string def = l[i].Remove(0, 9);
+						string froma = def.Substring(0, def.IndexOf(" "));
+						string toa = def.Substring(def.IndexOf(" ") + 1);
+						string[] splitstr = { "&&&" };
+						string[] splitres = froma.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						froma = result;
+						splitres = toa.Split(splitstr, StringSplitOptions.None);
+						result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						toa = result;
+						File.Copy(froma, toa);
+					}
+					else if(l[i].StartsWith("readfile "))
+					{
+						string def = l[i].Remove(0, 9);
+						string[] splitstra = { " " };
+						string[] splitresa = def.Split(splitstra, StringSplitOptions.None);
+						string paths = splitresa[0];
+						string line = splitresa[1];
+						string var1 = splitresa[2];
+						string[] splitstr = { "&&&" };
+						string[] splitres = paths.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						paths = result;
+						splitres = line.Split(splitstr, StringSplitOptions.None);
+						result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						line = result;
+						if(File.Exists(paths))
+						{
+							int ln = int.Parse(line);
+							string[] filsa = File.ReadAllLines(paths);
+							string va = filsa[ln];
+							bool d = false;
+							for (int ch = 0; ch < vars.Count; ch++)
+		                    {
+		                        if (vars[ch].StartsWith(var1 + "="))
+		                        {
+		                        	vars[ch] = var1 + "=" + va;
+		                        	d = true;
+		                            break;
+		                        }
+		                    }
+		                    if(!d)
+		                    	vars.Add(var1 + "=" + va);
+						}
+					}
+					else if(l[i].StartsWith("writefile "))
+					{
+						string def = l[i].Remove(0, 10);
+						string[] splitstra = { " " };
+						string[] splitresa = def.Split(splitstra, StringSplitOptions.None);
+						string paths = splitresa[0];
+						string text = splitresa[1];
+						string line = splitresa[2];
+						string[] splitstr = { "&&&" };
+						string[] splitres = paths.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						paths = result;
+						splitres = line.Split(splitstr, StringSplitOptions.None);
+						result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						line = result;
+						splitres = text.Split(splitstr, StringSplitOptions.None);
+						result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						text = result;
+						if(File.Exists(paths))
+						{
+							int ln = int.Parse(line);
+							string[] filsa = File.ReadAllLines(paths);
+							filsa[ln] = text;
+						}
+					}
+					else if(l[i].StartsWith("addfile "))
+					{
+						string def = l[i].Remove(0, 8);
+						string[] splitstra = { " " };
+						string[] splitresa = def.Split(splitstra, StringSplitOptions.None);
+						string paths = splitresa[0];
+						string text = splitresa[1];
+						string[] splitstr = { "&&&" };
+						string[] splitres = paths.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						paths = result;
+						splitres = text.Split(splitstr, StringSplitOptions.None);
+						result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						text = result;
+						if(File.Exists(paths))
+						{
+							File.AppendAllText(paths, Environment.NewLine + text);
+						}
+					}
+					else if (l[i].StartsWith("removechars "))
+	                {
+	                	string ofas3 = l[i].Remove(0, 12);
+	                	string strt = ofas3.Substring(0, ofas3.IndexOf(" "));
+	                	string ana = ofas3.Substring(ofas3.IndexOf(" ") + 1);
+	                	string valuef = ana.Substring(0, ana.IndexOf("="));
+	                	string varvf = ana.Substring(ana.IndexOf("=") + 1);
+	                	string[] splitstring = { "&&&" };
+	                    string[] ofas2 = valuef.Split(splitstring, StringSplitOptions.None);
+	                    string result = "";
+	                    for(int ch = 0; ch < ofas2.Length; ch++)
+						{
+							string str2 = ofas2[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+	                    string da = result;
+	                    ofas2 = strt.Split(splitstring, StringSplitOptions.None);
+	                    result = "";
+	                    for(int ch = 0; ch < ofas2.Length; ch++)
+						{
+							string str2 = ofas2[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+	                    string fa = result;
+	                    string va = "";
+	                    bool abs = false;
+	                    for (int ch = 0; ch < vars.Count; ch++)
+	                    {
+	                        if (vars[ch].StartsWith(varvf + "="))
+	                        {
+	                            string txt2 = vars[ch].Substring(vars[ch].IndexOf("=") + 1);
+	                            va = txt2;
+	                            abs = true;
+	                            break;
+	                        }
+	                    }
+	                    if (abs == false)
+	                    {
+	                    	va = "null";
+	                    }
+	                    try
+	                    {
+	                    	int chfr = Convert.ToInt32(da);
+	                    	int chfr2 = Convert.ToInt32(fa);
+	                    	va = va.Remove(chfr2, chfr);
+		                    bool d = false;
+		                    for (int ch = 0; ch < vars.Count; ch++)
+		                    {
+		                        if (vars[ch].StartsWith(varvf + "="))
+		                        {
+		                        	vars[ch] = varvf + "=" + va;
+		                        	d = true;
+		                            break;
+		                        }
+		                        
+		                    }
+		                    if(!d)
+		                    {
+		                    	vars.Add(varvf + "=" + va);
+		                    }
+	                    }
+	                    catch
+	                    {
+	                    	
+	                    }
+	                }
+					else if (l[i].StartsWith("substring "))
+	                {
+	                	string ofas3 = l[i].Remove(0, 10);
+	                	string strt = ofas3.Substring(0, ofas3.IndexOf(" "));
+	                	string ana = ofas3.Substring(ofas3.IndexOf(" ") + 1);
+	                	string valuef = ana.Substring(0, ana.IndexOf("="));
+	                	string varvf = ana.Substring(ana.IndexOf("=") + 1);
+	                	string[] splitstring = { "&&&" };
+	                    string[] ofas2 = valuef.Split(splitstring, StringSplitOptions.None);
+	                    string result = "";
+	                    for(int ch = 0; ch < ofas2.Length; ch++)
+						{
+							string str2 = ofas2[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+	                    string da = result;
+	                    ofas2 = strt.Split(splitstring, StringSplitOptions.None);
+	                    result = "";
+	                    for(int ch = 0; ch < ofas2.Length; ch++)
+						{
+							string str2 = ofas2[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+	                    string fa = result;
+	                    string va = "";
+	                    bool abs = false;
+	                    for (int ch = 0; ch < vars.Count; ch++)
+	                    {
+	                        if (vars[ch].StartsWith(varvf + "="))
+	                        {
+	                            string txt2 = vars[ch].Substring(vars[ch].IndexOf("=") + 1);
+	                            va = txt2;
+	                            abs = true;
+	                            break;
+	                        }
+	                    }
+	                    if (abs == false)
+	                    {
+	                    	va = "null";
+	                    }
+	                    try
+	                    {
+	                    	int chfr = Convert.ToInt32(da);
+	                    	int chfr2 = Convert.ToInt32(fa);
+	                    	va = va.Substring(chfr2, chfr);
+		                    bool d = false;
+		                    for (int ch = 0; ch < vars.Count; ch++)
+		                    {
+		                        if (vars[ch].StartsWith(varvf + "="))
+		                        {
+		                        	vars[ch] = varvf + "=" + va;
+		                        	d = true;
+		                            break;
+		                        }
+		                        
+		                    }
+		                    if(!d)
+		                    {
+		                    	vars.Add(varvf + "=" + va);
+		                    }
+	                    }
+	                    catch
+	                    {
+	                    	
+	                    }
+	                }
+					else if (l[i].StartsWith("//"))
+	                {
+	                	//
+	                	//
+	                }
+					else if (l[i].StartsWith("exists "))
+	                {
+	                	string ofas3 = l[i].Remove(0, 12);
+	                	string type = ofas3.Substring(0, ofas3.IndexOf(" "));
+	                	string ana = ofas3.Substring(ofas3.IndexOf(" ") + 1);
+	                	string paths = ana.Substring(0, ana.IndexOf("="));
+	                	string varvf = ana.Substring(ana.IndexOf("=") + 1);
+	                	string[] splitstring = { "&&&" };
+	                    string[] ofas2 = paths.Split(splitstring, StringSplitOptions.None);
+	                    string result = "";
+	                    for(int ch = 0; ch < ofas2.Length; ch++)
+						{
+							string str2 = ofas2[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+	                    string da = result;
+	                    string va = "false";
+	                    try
+	                    {
+	                    	if(type == "file")
+	                    	{
+	                    		if(File.Exists(paths))
+	                    		{
+	                    			va = "true";
+	                    		}
+	                    		bool d = false;
+			                    for (int ch = 0; ch < vars.Count; ch++)
+			                    {
+			                        if (vars[ch].StartsWith(varvf + "="))
+			                        {
+			                        	vars[ch] = varvf + "=" + va;
+			                        	d = true;
+			                            break;
+			                        }
+			                        
+			                    }
+			                    if(!d)
+			                    {
+			                    	vars.Add(varvf + "=" + va);
+			                    }
+		                    }
+	                    	if(type == "dir")
+	                    	{
+	                    		if(Directory.Exists(paths))
+	                    		{
+	                    			va = "true";
+	                    		}
+	                    		bool d = false;
+			                    for (int ch = 0; ch < vars.Count; ch++)
+			                    {
+			                        if (vars[ch].StartsWith(varvf + "="))
+			                        {
+			                        	vars[ch] = varvf + "=" + va;
+			                        	d = true;
+			                            break;
+			                        }
+			                        
+			                    }
+			                    if(!d)
+			                    {
+			                    	vars.Add(varvf + "=" + va);
+			                    }
+		                    }
+	                    }
+	                    catch
+	                    {
+	                    	
+	                    }
+	                }
+					else if(l[i].StartsWith("lineslength "))
+					{
+						string def = l[i].Remove(0, 12);
+						string file = def.Substring(0, def.IndexOf(" "));
+						string var1 = def.Substring(def.IndexOf(" ") + 1);
+						string[] splitstr = { "&&&" };
+						string[] splitres = file.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						file = result;
+						if(File.Exists(file))
+						{
+							string[] fa = File.ReadAllLines(file);
+							bool d = false;
+							for (int ch = 0; ch < vars.Count; ch++)
+		                    {
+		                        if (vars[ch].StartsWith(var1 + "="))
+		                        {
+		                        	vars[ch] = var1 + "=" + fa.Length;
+		                        	d = true;
+		                            break;
+		                        }
+		                    }
+		                    if(!d)
+		                    	vars.Add(var1 + "=" + fa.Length);
+						}
+					}
+					else if(l[i].StartsWith("stringlength "))
+					{
+						string def = l[i].Remove(0, 13);
+						string str = def.Substring(0, def.IndexOf(" "));
+						string var1 = def.Substring(def.IndexOf(" ") + 1);
+						string[] splitstr = { "&&&" };
+						string[] splitres = str.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						str = result;
+						bool d = false;
+						for (int ch = 0; ch < vars.Count; ch++)
+	                    {
+	                        if (vars[ch].StartsWith(var1 + "="))
+	                        {
+	                        	vars[ch] = var1 + "=" + str.Length;
+	                        	d = true;
+	                            break;
+	                        }
+	                    }
+	                    if(!d)
+	                    	vars.Add(var1 + "=" + str.Length);
+					}
+					/*
+					else if(l[i].StartsWith("screenshot "))
+					{
+						string pathe = l[i].Remove(0, 11);
+						string[] splitstr = { "&&&" };
+						string[] splitres = pathe.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						pathe = result;
+	                    Bitmap printscreen = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+ 						Graphics graphics = Graphics.FromImage(printscreen as Image);
+ 						graphics.CopyFromScreen(0, 0, 0, 0, printscreen.Size);
+ 						printscreen.Save(pathe, System.Drawing.Imaging.ImageFormat.Png);
+					}
+					*/
+					else if (l[i].StartsWith("download "))
+	                {
+	                    string ofas3 = l[i].Remove(0, 9);
+	                    string froms = ofas3.Substring(0, ofas3.IndexOf(" "));
+	                    string tos = ofas3.Substring(ofas3.IndexOf(" ") + 1);
+	                    string[] splitstr = { "&&&" };
+						string[] splitres = froms.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+	                    froms = result;
+	                    splitres = tos.Split(splitstr, StringSplitOptions.None);
+	                    result = "";
+	                    for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+	                    tos = result;
+	                    WebClient webClient = new WebClient();
+			            string patha = tos;
+			            webClient.DownloadFile(froms, patha);
+	                }
+					else if (l[i] == "shutdown")
+	                    Process.Start("shutdown","/s /t 0");
+	                else if (l[i] == "restart")
+	                    Process.Start("shutdown","/r /t 0");
+	                else if (l[i] == "sleep")
+	                    Process.Start("shutdown","/h /t 0");
+	                else if (l[i].StartsWith("sizefile "))
+	                {
+	                	string drag = l[i].Remove(0, 9);
+	                	string app = drag.Substring(0, drag.IndexOf(" "));
+	                	string varv = drag.Substring(drag.IndexOf(" ") + 1);
+	                	string va = "0";
+	                	string ofas4 = app;
+	                    string[] splitstr = { "&&&" };
+						string[] splitres = app.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+	                    app = result;
+	                    if(File.Exists(app))
+	                    {
+		                    System.IO.FileInfo file = new System.IO.FileInfo(app);
+							double size = file.Length;
+							va = size.ToString();
+	                    }
+	                    bool d = false;
+	                    for (int ch = 0; ch < vars.Count; ch++)
+	                    {
+	                        if (vars[ch].StartsWith(varv + "="))
+	                        {
+	                        	vars[ch] = varv + "=" + va;
+	                        	d = true;
+	                            break;
+	                        }
+	                        
+	                    }
+	                    if(!d)
+	                    {
+	                    	vars.Add(varv + "=" + va);
+	                    }
+	                }
+	                else if (l[i].StartsWith("sizedir "))
+	                {
+	                	string drag = l[i].Remove(0, 8);
+	                	string app = drag.Substring(0, drag.IndexOf(" "));
+	                	string varv = drag.Substring(drag.IndexOf(" ") + 1);
+	                	string va = "0";
+	                	string ofas4 = app;
+	                    string[] splitstr = { "&&&" };
+						string[] splitres = app.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+	                    app = result;
+	                    if(Directory.Exists(app))
+	                    {
+	                    	string[] files = Directory.GetFiles(app);
+	                    	double size = 0;
+	                    	foreach (string fi in files) {
+	                    		System.IO.FileInfo file = new System.IO.FileInfo(fi);
+								size += file.Length;
+	                    	}
+		                    va = size.ToString();
+	                    }
+	                    bool d = false;
+	                    for (int ch = 0; ch < vars.Count; ch++)
+	                    {
+	                        if (vars[ch].StartsWith(varv + "="))
+	                        {
+	                        	vars[ch] = varv + "=" + va;
+	                        	d = true;
+	                            break;
+	                        }
+	                        
+	                    }
+	                    if(!d)
+	                    {
+	                    	vars.Add(varv + "=" + va);
+	                    }
+	                }
+	                else if(l[i].StartsWith("keyseta "))
+					{
+						string stra = l[i].Remove(0, 8);
+						string var1 = stra.Substring(0, stra.IndexOf("="));
+						string str = stra.Substring(stra.IndexOf("=") + 1);
+						string[] splitstr = { "&&&" };
+						string[] splitres = str.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						str = result;
+						Console.Write(str); ConsoleKeyInfo va = Console.ReadKey();
+						bool d = false;
+						for (int ch = 0; ch < vars.Count; ch++)
+	                    {
+	                        if (vars[ch].StartsWith(var1 + "="))
+	                        {
+	                        	vars[ch] = var1 + "=" + va.Key;
+	                        	d = true;
+	                            break;
+	                        }
+	                    }
+	                    if(!d)
+	                    	vars.Add(var1 + "=" + va.Key);
+					}
+	                else if(l[i].StartsWith("keysetb "))
+					{
+						string stra = l[i].Remove(0, 8);
+						string var1 = stra.Substring(0, stra.IndexOf("="));
+						string str = stra.Substring(stra.IndexOf("=") + 1);
+						string[] splitstr = { "&&&" };
+						string[] splitres = str.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "dd.MM.yyyy")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						str = result;
+						Console.Write(str); ConsoleKeyInfo va = Console.ReadKey(true);
+						bool d = false;
+						for (int ch = 0; ch < vars.Count; ch++)
+	                    {
+	                        if (vars[ch].StartsWith(var1 + "="))
+	                        {
+	                        	vars[ch] = var1 + "=" + va.Key;
+	                        	d = true;
+	                            break;
+	                        }
+	                    }
+	                    if(!d)
+	                    	vars.Add(var1 + "=" + va.Key);
 					}
 				}
 				catch
