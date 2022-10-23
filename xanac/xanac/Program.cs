@@ -16,6 +16,7 @@ using System.Web;
 using System.Net;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Media;
 
 namespace xanac
 {
@@ -26,6 +27,7 @@ namespace xanac
         public static bool logs;
         public static string logf;
 		
+        
 		public static void Main(string[] args)
 		{
 			vars = new List<string>
@@ -98,6 +100,7 @@ namespace xanac
             oth();
 		}
 		
+		[STAThread]
 		public static void oth()
 		{
 			string[] l = File.ReadAllLines(path);
@@ -2456,7 +2459,6 @@ namespace xanac
 	                    if(!d)
 	                    	vars.Add(var1 + "=" + str.Length);
 					}
-					/*
 					else if(l[i].StartsWith("screenshot "))
 					{
 						string pathe = l[i].Remove(0, 11);
@@ -2508,7 +2510,6 @@ namespace xanac
  						graphics.CopyFromScreen(0, 0, 0, 0, printscreen.Size);
  						printscreen.Save(pathe, System.Drawing.Imaging.ImageFormat.Png);
 					}
-					*/
 					else if (l[i].StartsWith("download "))
 	                {
 	                    string ofas3 = l[i].Remove(0, 9);

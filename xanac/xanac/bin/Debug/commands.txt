@@ -38,6 +38,7 @@ sizedir $dir var
 keyseta var=Key: 
 keysetb var=...
 random $minValue $maxValue var
+screenshot $path
 ARGS:
 file:(file)
 ver
