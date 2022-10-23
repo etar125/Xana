@@ -2232,7 +2232,7 @@ namespace xanac
 	                }
 					else if (l[i].StartsWith("exists "))
 	                {
-	                	string ofas3 = l[i].Remove(0, 12);
+	                	string ofas3 = l[i].Remove(0, 7);
 	                	string type = ofas3.Substring(0, ofas3.IndexOf(" "));
 	                	string ana = ofas3.Substring(ofas3.IndexOf(" ") + 1);
 	                	string paths = ana.Substring(0, ana.IndexOf("="));
