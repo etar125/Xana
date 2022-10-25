@@ -39,6 +39,8 @@ keyseta var=Key:
 keysetb var=...
 random $minValue $maxValue var
 screenshot $path
+changepath $path
+refresh
 ARGS:
 file:(file)
 ver
