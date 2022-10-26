@@ -144,9 +144,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -196,9 +196,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -238,9 +238,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -345,9 +345,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -395,9 +395,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -456,9 +456,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -542,9 +542,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -554,14 +554,31 @@ namespace xanac
 						txt = result;
 						if(actu == "=")
 						{
-							if(vara == txt)
+							if(txt != "$stringempty")
 							{
-								for(int ab = 0; ab < l.Length; ab++)
+								if(vara == txt)
 								{
-									if(l[ab] == "[" + func + "]")
+									for(int ab = 0; ab < l.Length; ab++)
 									{
-										i = ab;
-										break;
+										if(l[ab] == "[" + func + "]")
+										{
+											i = ab;
+											break;
+										}
+									}
+								}
+							}
+							else
+							{
+								if(string.IsNullOrEmpty(vara) || string.IsNullOrWhiteSpace(vara))
+								{
+									for(int ab = 0; ab < l.Length; ab++)
+									{
+										if(l[ab] == "[" + func + "]")
+										{
+											i = ab;
+											break;
+										}
 									}
 								}
 							}
@@ -600,14 +617,31 @@ namespace xanac
 						}
 						if(actu == "!")
 						{
-							if(vara != txt)
+							if(txt != "$stringempty")
 							{
-								for(int ab = 0; ab < l.Length; ab++)
+								if(vara != txt)
 								{
-									if(l[ab] == "[" + func + "]")
+									for(int ab = 0; ab < l.Length; ab++)
 									{
-										i = ab;
-										break;
+										if(l[ab] == "[" + func + "]")
+										{
+											i = ab;
+											break;
+										}
+									}
+								}
+							}
+							else
+							{
+								if(!string.IsNullOrEmpty(vara) || !string.IsNullOrWhiteSpace(vara))
+								{
+									for(int ab = 0; ab < l.Length; ab++)
+									{
+										if(l[ab] == "[" + func + "]")
+										{
+											i = ab;
+											break;
+										}
 									}
 								}
 							}
@@ -709,9 +743,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -751,9 +785,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -894,10 +928,10 @@ namespace xanac
 								{
 									result += DateTime.Now.ToString("HH:mm:ss");
 								}
-								else if(str2 == "dd.MM.yyyy")
-								{
-									result += DateTime.Now.ToString("HH:mm:ss");
-								}
+								else if(str2 == "date")
+							{
+								result += DateTime.Now.ToString("dd.MM.yyyy");
+							}
 								else
 								{
 									result += str2;
@@ -956,9 +990,9 @@ namespace xanac
 								{
 									result += DateTime.Now.ToString("HH:mm:ss");
 								}
-								else if(str2 == "dd.MM.yyyy")
+								else if(str2 == "date")
 								{
-									result += DateTime.Now.ToString("HH:mm:ss");
+									result += DateTime.Now.ToString("dd.MM.yyyy");
 								}
 								else
 								{
@@ -998,9 +1032,9 @@ namespace xanac
 								{
 									result += DateTime.Now.ToString("HH:mm:ss");
 								}
-								else if(str2 == "dd.MM.yyyy")
+								else if(str2 == "date")
 								{
-									result += DateTime.Now.ToString("HH:mm:ss");
+									result += DateTime.Now.ToString("dd.MM.yyyy");
 								}
 								else
 								{
@@ -1062,9 +1096,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1116,9 +1150,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1172,9 +1206,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1220,9 +1254,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1269,9 +1303,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1317,9 +1351,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1368,9 +1402,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1410,9 +1444,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1460,9 +1494,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1502,9 +1536,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1552,9 +1586,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1594,9 +1628,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1647,9 +1681,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1689,9 +1723,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1759,9 +1793,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1801,9 +1835,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1843,9 +1877,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1900,9 +1934,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1942,9 +1976,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -1997,9 +2031,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2039,9 +2073,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2131,9 +2165,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2173,9 +2207,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2270,9 +2304,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2371,9 +2405,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2436,9 +2470,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2495,9 +2529,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2548,9 +2582,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2590,9 +2624,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2650,9 +2684,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2722,9 +2756,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2796,9 +2830,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2858,9 +2892,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2923,9 +2957,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -2965,9 +2999,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -3028,9 +3062,9 @@ namespace xanac
 							{
 								result += DateTime.Now.ToString("HH:mm:ss");
 							}
-							else if(str2 == "dd.MM.yyyy")
+							else if(str2 == "date")
 							{
-								result += DateTime.Now.ToString("HH:mm:ss");
+								result += DateTime.Now.ToString("dd.MM.yyyy");
 							}
 							else
 							{
@@ -3042,10 +3076,157 @@ namespace xanac
 					}
 	                else if(l[i] == "refresh")
 	                	oth();
+	                else if(l[i].StartsWith("split "))
+					{
+						string def = l[i].Remove(0, 6);
+						string[] splita = { " " };
+						string[] st = def.Split(splita, StringSplitOptions.None);
+						string symbol = st[0];
+						string tyx = st[1];
+						string pathe = st[2];
+						string[] splitstr = { "&&&" };
+						string[] splitres = symbol.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "date")
+							{
+								result += DateTime.Now.ToString("dd.MM.yyyy");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						symbol = result;
+						splitres = pathe.Split(splitstr, StringSplitOptions.None);
+						result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "date")
+							{
+								result += DateTime.Now.ToString("dd.MM.yyyy");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						pathe = result;
+						splitres = tyx.Split(splitstr, StringSplitOptions.None);
+						result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "date")
+							{
+								result += DateTime.Now.ToString("dd.MM.yyyy");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						tyx = result;
+						string[] splitopt = { symbol };
+						string[] resultat = tyx.Split(splitopt, StringSplitOptions.None);
+						File.WriteAllLines(pathe, resultat);
+					}
 				}
-				catch
+				catch(Exception e)
 				{
-					
+					if(Directory.Exists(@"C:\XanaLogs"))
+					{
+						File.WriteAllText(@"C:\XanaLogs\log_" + DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss") + "_xana.txt", e.Message);
+					}
+					else
+					{
+						Directory.CreateDirectory(@"C:\XanaLogs");
+						File.WriteAllText(@"C:\XanaLogs\log_" + DateTime.Now.ToString("dd-MM-yyyy_HH-mm-ss") + "_xana.txt", e.Message);
+					}
 				}
 			}
 		}

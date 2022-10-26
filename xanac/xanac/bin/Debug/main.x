@@ -1,15 +1,15 @@
-caption XanaOS
-color green black
-clear
-[other]
-set str=/$
-if str = info inf
-color red black
-print Not found command &&&$str&&&;
-color green black
-go other
-[inf]
-print Version Alpha 1
-print Author: InnieSharp
+var teststring=Aboba,test,best
+split , $teststring test.txt
+var truea= 
+var falsea=no
+if truea = /$stringempty yes!
+[yes!]
+print True!
+if falsea = /$stringempty no!
+go testia
+[no!]
+print no!
 pause
-go other
+exit
+[testia]
+pause
