@@ -36,13 +36,9 @@ namespace xanac
             	"sysdir=" + Environment.SystemDirectory,
             	"machinename=" + Environment.MachineName,
             	"username=" + Environment.UserName,
-            	"osver=" + Environment.OSVersion
+            	"osver=" + Environment.OSVersion,
+            	""
             };
-			vars = new List<string>
-			{
-				"",
-				""
-			};
 			
 			bool have = false;
             foreach(string l in args)
