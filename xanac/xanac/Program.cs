@@ -1886,8 +1886,16 @@ namespace xanac
 						if(File.Exists(paths))
 						{
 							int ln = int.Parse(line);
-							string[] filsa = File.ReadAllLines(paths);
-							filsa[ln] = text;
+							if(ln != -1)
+							{
+								string[] filsa = File.ReadAllLines(paths);
+								filsa[ln] = text;
+								File.WriteAllLines(paths, filsa);
+							}
+							else
+							{
+								File.WriteAllText(paths, text);
+							}
 						}
 					}
 					else if(l[i].StartsWith("addfile "))
@@ -3454,6 +3462,158 @@ namespace xanac
 							}
 						}
 					}
+	                else if(l[i].StartsWith("generatecode "))
+	                {
+	                	string fil = l[i].Remove(0, 13);
+	                	string[] splitstr = { "&&&" };
+						string[] splitres = fil.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "date")
+							{
+								result += DateTime.Now.ToString("dd.MM.yyyy");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						fil = result;
+						Random r1 = new Random();
+						Random r2 = new Random();
+						int type = r1.Next(0, 7);
+						//0=1 - default "$message"
+						//2 - "OS"
+						//3 - Calc
+						//4 - default "Whats your name?"
+						//5 - 1kk folders
+						//6 - "I LOVE U" spammer
+						if(type == 0 || type == 1)
+						{
+							int txt = r2.Next(0, 5);
+							Dictionary<int, string> tx = new Dictionary<int, string>()
+							{
+								{ 0, "Hello, World!" },
+							    { 1, "Hello, World!" },
+							    { 2, "Created on Xanalang!" },
+							    { 3, "..." },
+							    { 4, "Hi!" }
+							};
+							string[] lll = 
+							{
+								"print " + tx[txt],
+								"pause"
+							};
+							File.WriteAllLines(fil, lll);
+						}
+						else if(type == 2)
+						{
+							string[] lll = 
+							{
+								"caption NoneOS",
+								"crfile list.txt",
+								"writefile list.txt Info -1",
+								"addfile list.txt Exit",
+								"[this]",
+								"choose list.txt li",
+								"if li = Info inf",
+								"if li = Exit ex",
+								"go this",
+								"[inf]",
+								"print INFORMATION",
+								"pause",
+								"go this",
+								"[ex]",
+								"exit"
+							};
+							File.WriteAllLines(fil, lll);
+						}
+						else if(type == 3)
+						{
+							string[] lll = 
+							{
+								"[this]",
+								"set num1=First number: ",
+								"set num2=Second number: ",
+								"math $num1 + $num2 res1",
+								"math $num1 - $num2 res2",
+								"math $num1 * $num2 res3",
+								"print $num1&&& + &&&$num2&&& = &&&$res1",
+								"print $num1&&& - &&&$num2&&& = &&&$res2",
+								"print $num1&&& * &&&$num2&&& = &&&$res3",
+								"go this"
+							};
+							File.WriteAllLines(fil, lll);
+						}
+						else if(type == 4)
+						{
+							string[] lll = 
+							{
+								"[this]",
+								"set num1=Your name: ",
+								"print Your name: &&&$num1",
+								"pause",
+								"clear",
+								"go this"
+							};
+							File.WriteAllLines(fil, lll);
+						}
+						else if(type == 5)
+						{
+							string[] lll = 
+							{
+								"var num=0",
+								"[this]",
+								"if num = 1000000 end",
+								"crdir folder_&&&$num",
+								"math $num + 1 num1",
+								"var num=$num1",
+								"go this",
+								"[end]",
+								"exit"
+							};
+							File.WriteAllLines(fil, lll);
+						}
+						else if(type == 6)
+						{
+							string[] lll = 
+							{
+								"[this]",
+								"print I LOVE U",
+								"go this"
+							};
+							File.WriteAllLines(fil, lll);
+						}
+	                }
 				}
 				catch(Exception e)
 				{

@@ -39,11 +39,12 @@ keyseta var=Key:
 keysetb var=...
 random $minValue $maxValue var
 screenshot $path
-changepath path
+changepath $path
 refresh
 split $symbol $text $path
 choose $path var
-getfiles $dir $path
+getfiles $from $to.txt
+generatecode $path
 ARGS:
 file:(file)
 ver

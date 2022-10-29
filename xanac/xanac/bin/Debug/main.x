@@ -1,4 +1,3 @@
-choose commands.txt tx
-clear
-print $tx
-pause
+generatecode test.x
+changepath test.x
+refresh
