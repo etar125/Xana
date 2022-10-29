@@ -42,6 +42,7 @@ screenshot $path
 changepath path
 refresh
 split $symbol $text $path
+choose $path var
 ARGS:
 file:(file)
 ver

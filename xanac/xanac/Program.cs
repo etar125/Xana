@@ -3211,6 +3211,249 @@ namespace xanac
 						string[] resultat = tyx.Split(splitopt, StringSplitOptions.None);
 						File.WriteAllLines(pathe, resultat);
 					}
+	                else if(l[i].StartsWith("getfiles "))
+					{
+						string def = l[i].Remove(0, 9);
+						string[] splita = { " " };
+						string[] st = def.Split(splita, StringSplitOptions.None);
+						string pathe = st[0];
+						string filia = st[1];
+						string[] splitstr = { "&&&" };
+						string[] splitres = pathe.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "date")
+							{
+								result += DateTime.Now.ToString("dd.MM.yyyy");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						pathe = result;
+						splitres = filia.Split(splitstr, StringSplitOptions.None);
+						result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "date")
+							{
+								result += DateTime.Now.ToString("dd.MM.yyyy");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						filia = result;
+						string[] filelist = Directory.GetFiles(pathe);
+						File.WriteAllLines(filia, filelist);
+					}
+	                else if(l[i].StartsWith("choose "))
+					{
+						string def = l[i].Remove(0, 7);
+						string[] splita = { " " };
+						string[] st = def.Split(splita, StringSplitOptions.None);
+						string lista = st[0]; //list
+						string var1 = st[1]; //var
+						string[] splitstr = { "&&&" };
+						string[] splitres = lista.Split(splitstr, StringSplitOptions.None);
+						string result = "";
+						for(int ch = 0; ch < splitres.Length; ch++)
+						{
+							string str2 = splitres[ch];
+							if(str2.StartsWith("/"))
+							{
+								str2 = str2.Remove(0, 1);
+								result += str2;
+							}
+							else if(str2.StartsWith("$"))
+							{
+								string var = str2.Remove(0, 1);
+								bool act = false;
+								for(int ln = 0; ln < vars.Count; ln++)
+								{
+									if(vars[ln].StartsWith(var + "="))
+									{
+										result += vars[ln].Substring(vars[ln].IndexOf("=") + 1);
+										act = true;
+										break;
+									}
+								}
+								if(!act)
+								{
+									result += "empty";
+								}
+							}
+							else if(str2 == "time")
+							{
+								result += DateTime.Now.ToString("HH:mm:ss");
+							}
+							else if(str2 == "date")
+							{
+								result += DateTime.Now.ToString("dd.MM.yyyy");
+							}
+							else
+							{
+								result += str2;
+							}
+						}
+						lista = result;
+						string[] fv = File.ReadAllLines(lista);
+						int index = 0;
+						bool cho = true;
+						while(cho)
+						{
+							Console.Clear();
+							for(int k = 0; k < fv.Length; k++)
+							{
+								if(k == index)
+								{
+									Console.WriteLine("->" + fv[k]);
+								}
+								else
+								{
+									Console.WriteLine(fv[k]);
+								}
+							}
+							ConsoleKeyInfo afds = Console.ReadKey(true);
+							if(afds.Key == ConsoleKey.UpArrow)
+							{
+								if(index == 0)
+								{
+									index = fv.Length - 1;
+								}
+								else
+								{
+									index--;
+								}
+							}
+							else if(afds.Key == ConsoleKey.DownArrow)
+							{
+								if(index == fv.Length - 1)
+								{
+									index = 0;
+								}
+								else
+								{
+									index++;
+								}
+							}
+							else if(afds.Key == ConsoleKey.W)
+							{
+								if(index == 0)
+								{
+									index = fv.Length - 1;
+								}
+								else
+								{
+									index--;
+								}
+							}
+							else if(afds.Key == ConsoleKey.S)
+							{
+								if(index == fv.Length - 1)
+								{
+									index = 0;
+								}
+								else
+								{
+									index++;
+								}
+							}
+							else if(afds.Key == ConsoleKey.Enter)
+							{
+								string str = fv[index];
+								bool d = false;
+								for (int ch = 0; ch < vars.Count; ch++)
+			                    {
+			                        if (vars[ch].StartsWith(var1 + "="))
+			                        {
+			                        	vars[ch] = var1 + "=" + str;
+			                        	d = true;
+			                            break;
+			                        }
+			                    }
+			                    if(!d)
+			                    	vars.Add(var1 + "=" + str);
+			                    cho = false;
+							}
+							else if(afds.Key == ConsoleKey.Spacebar)
+							{
+								string str = fv[index];
+								bool d = false;
+								for (int ch = 0; ch < vars.Count; ch++)
+			                    {
+			                        if (vars[ch].StartsWith(var1 + "="))
+			                        {
+			                        	vars[ch] = var1 + "=" + str;
+			                        	d = true;
+			                            break;
+			                        }
+			                    }
+			                    if(!d)
+			                    	vars.Add(var1 + "=" + str);
+			                    cho = false;
+							}
+						}
+					}
 				}
 				catch(Exception e)
 				{
