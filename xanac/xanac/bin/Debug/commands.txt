@@ -43,6 +43,7 @@ changepath path
 refresh
 split $symbol $text $path
 choose $path var
+getfiles $dir $path
 ARGS:
 file:(file)
 ver
